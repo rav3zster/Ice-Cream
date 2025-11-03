@@ -1,13 +1,4 @@
 {
-  "version": 2,
-  "rewrites": [
-    {
-      "source": "/brand.html",
-      "destination": "/brand.html"
-    },
-    {
-      "source": "/index.html",
-      "destination": "/index.html"
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
