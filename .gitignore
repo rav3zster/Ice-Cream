@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+*.log
+.vscode/
+angular-brand/node_modules/
+angular-brand/dist/
+angular-brand/.angular/

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en" ng-app="brandApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sunny Scoop — About</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Using AngularJS 1.8 for an easy single-file Angular demo -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+    <style>
+      .brand-header {
+        background: linear-gradient(135deg, #fff7f0 0%, #fff 100%);
+        padding: 30px 0;
+        border-bottom: 2px solid #e3e3e3;
+        margin-bottom: 30px;
+      }
+      .brand-nav {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      .brand-nav .btn-link {
+        padding: 8px 16px;
+        background: #fff;
+        border: 2px solid #e3e3e3;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+      .brand-nav .btn-link:hover {
+        border-color: #ff6b6b;
+        text-decoration: none;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
+      }
+      .section-box {
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        border: 2px solid #e3e3e3;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+      .section-box h2 {
+        color: #ff6b6b;
+        margin-top: 0;
+        font-size: 28px;
+      }
+      .flavor-list {
+        list-style: none;
+        padding: 0;
+      }
+      .flavor-list li {
+        padding: 15px;
+        margin: 10px 0;
+        background: #fef8f1;
+        border-left: 4px solid #ff6b6b;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+      .flavor-list li:hover {
+        transform: translateX(5px);
+        box-shadow: 0 2px 8px rgba(255, 107, 107, 0.15);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="brand-header">
+      <div class="container">
+        <div class="brand-nav">
+          <a class="btn-link" href="index.html">🛒 Products (Bootstrap)</a>
+        </div>
+        <h1 class="logo">About Sunny Scoop</h1>
+        <p class="tagline">Learn about our brand and values</p>
+      </div>
+    </div>
+
+    <div class="container" ng-controller="BrandCtrl as vm">
+      <section class="section-box">
+        <h2>🏢 Who We Are</h2>
+        <p style="font-size: 16px; line-height: 1.8;">{{ vm.description }}</p>
+      </section>
+
+      <section class="section-box">
+        <h2>📖 Our Story</h2>
+        <p style="font-size: 16px; line-height: 1.8;" ng-bind-html="vm.story"></p>
+      </section>
+
+      <section class="section-box">
+        <h2>🍨 Our Core Flavors</h2>
+        <input type="text" ng-model="vm.q" placeholder="🔍 Filter flavors..." class="filter-input"/>
+        <ul class="flavor-list">
+          <li ng-repeat="f in vm.flavors | filter:vm.q">
+            <strong style="font-size: 18px; color: #2c3e50;">{{ f.name }}</strong><br>
+            <span style="color: #666;">{{ f.description }}</span><br>
+            <em style="color: #ff6b6b; font-weight: 700; font-size: 16px;">{{ f.price | currency }}</em>
+          </li>
+        </ul>
+        <p ng-if="(vm.flavors | filter:vm.q).length === 0" style="color: #999; text-align: center; padding: 20px;">
+          No flavors match your search. Try a different term!
+        </p>
+      </section>
+
+      <section class="section-box">
+        <h2>📧 Contact</h2>
+        <p style="font-size: 16px;">
+          <strong>Email:</strong> <a href="mailto:hello@sunnyscoop.example">hello@sunnyscoop.example</a><br>
+          <strong>Phone:</strong> +1 (555) 123-4567<br>
+          <strong>Address:</strong> 123 Ice Cream Lane, Sweet City, SC 12345
+        </p>
+      </section>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">© 2025 Sunny Scoop — Made with AngularJS</div>
+    </footer>
+
+    <script>
+      angular.module('brandApp', [])
+        .controller('BrandCtrl', ['$sce', function($sce){
+          var vm = this;
+          vm.description = 'Sunny Scoop is a small-batch ice cream brand focused on bright, natural flavors and sustainable sourcing.';
+          vm.story = $sce.trustAsHtml('Started in a tiny kitchen in 2016, <strong>Sunny Scoop</strong> grew from farmers markets to a neighbourhood favorite. We use local milk and seasonal fruit.');
+          vm.flavors = [
+            { name: 'Strawberry Dream', description: 'Hand-picked berries, no artificial colors.', price: 3.5 },
+            { name: 'Chocolate Bliss', description: 'Single-origin dark chocolate.', price: 3.75 },
+            { name: 'Lemon Zest', description: 'Bright, dairy-free sorbet.', price: 3.25 },
+            { name: 'Coconut Chill', description: 'Toasted coconut flakes.', price: 3.5 },
+            { name: 'Cookie Crunch', description: 'Bits of baked cookie folded in.', price: 3.8 }
+          ];
+        }]);
+    </script>
+  </body>
+</html>
